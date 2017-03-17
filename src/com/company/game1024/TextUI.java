@@ -23,7 +23,7 @@ public class TextUI {
             System.err.println ("*---------------------------------------------*");
             System.exit(0xE0);
         }
-        game.resizeBoard(4, 4, 64);
+        game.resizeBoard(4, 4, 1024);
         grid = new int[4][4];
 
         /* Set the string to %4d */

@@ -19,10 +19,10 @@ public class NumberGame implements NumberSlider{
     /*Height of the game board */
     private int height;
     /*Stores the value for winning the game */
-    private int ;winningValue;
+    private int winningValue;
     /*Stores the score of the game */
     private int score;
-    /*Tells if the game is over or still goind */
+    /*Tells if the game is over or still going */
     private GameStatus currentStatus;
     /*Tells if a tile has merged on a given slide */
     private boolean[][] hasMerged;
@@ -510,7 +510,6 @@ public class NumberGame implements NumberSlider{
 
     private void saveBoard() {
 
-        /** Temporary 2d Integer array. */
         int[][] temp = new int[height][width];
 
         for (int i = 0; i < height; i++) {
@@ -546,6 +545,10 @@ public class NumberGame implements NumberSlider{
         else{
             throw new IllegalStateException();
         }
+    }
+
+    public int getScore(){
+        return score;
     }
 
 }
