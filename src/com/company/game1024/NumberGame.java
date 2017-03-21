@@ -1,5 +1,9 @@
 package com.company.game1024;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
@@ -32,6 +36,8 @@ public class NumberGame implements NumberSlider{
     private Stack<Integer> savedScores;
     /*Stores location and value of a cell */
     private ArrayList<Cell> cells;
+    /*Stores high score*/
+    private int highScore;
 
     /**************************************************
     * Changes size and winning v2alue of the game
@@ -50,6 +56,7 @@ public class NumberGame implements NumberSlider{
         this.savedBoards = new Stack<>();
         this.savedScores = new Stack<>();
         this.score = 0;
+        this.highScore = 0;
 
         /*Checks if winning value is power of 2 */
         if((winningValue > 0) && ((winningValue &
@@ -86,7 +93,8 @@ public class NumberGame implements NumberSlider{
         }
 
         this.currentStatus = GameStatus.IN_PROGRESS;
-        placeTwoRandoms(gameBoard);
+        placeRandomValue();
+        placeRandomValue();
     }
 
     /*************************************************
@@ -347,6 +355,13 @@ public class NumberGame implements NumberSlider{
         gameBoard[i1][j1] = 0;
 
         hasMerged[i2][j2] = true;
+        if(gameBoard[i2][j2] > score){
+            score = gameBoard[i2][j2];
+        }
+
+        if(score > highScore){
+            this.highScore = score;
+        }
     }
 
     /**************************************************
@@ -503,7 +518,6 @@ public class NumberGame implements NumberSlider{
         }
     }
 
-
     /**************************************************
     * Saves the current board into a stack
     **************************************************/
@@ -551,4 +565,25 @@ public class NumberGame implements NumberSlider{
         return score;
     }
 
+    public int getHighScore(){
+        return highScore;
+    }
+
+    public void setWinningValue(int winningValue){
+        this.winningValue = winningValue;
+        getStatus();
+    }
+
+    public void saveHighScore(){
+        PrintWriter out = null;
+
+        try{
+            out = new PrintWriter(new BufferedWriter(
+                    new FileWriter("highscore.txt")));
+            out.println(this.highScore);
+            out.close();
+        } catch(IOException e){
+
+        }
+    }
 }
